@@ -3,6 +3,6 @@ import { CommentsController } from './comments.controller';
 
 const CommentsRouter: Router = Router();
 
-CommentsRouter.get('/many', CommentsController.getMany);
+CommentsRouter.get('/root', CommentsController.getRootComments);
 
 export { CommentsRouter };
