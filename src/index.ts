@@ -1,4 +1,3 @@
-import * as proxy from 'http-proxy-middleware';
 import * as express from 'express';
 import { config } from './config';
 import { AppRouter } from './router';
