@@ -7,4 +7,6 @@ const server = express();
 
 server.use(AppRouter);
 server.use(AppProxyRouter);
+
+console.log(`${config.server.name} running on port ${config.server.port}`);
 server.listen(config.server.port);

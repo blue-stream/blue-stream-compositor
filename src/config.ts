@@ -16,5 +16,6 @@ export const config = {
     server: {
         port: +(process.env.SERVER_PORT || 3000),
         hostname: process.env.SERVER_HOST || 'localhost',
+        name: process.env.SERVER_NAME || 'Compositor',
     },
 };
