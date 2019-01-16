@@ -3,9 +3,9 @@ import { CommentsProxy, ReactionsProxy, VideosProxy, ChannelsProxy } from './pro
 
 const AppProxyRouter: Router = Router();
 
-AppProxyRouter.use('/api/comments', CommentsProxy);
-AppProxyRouter.use('/api/reactions', ReactionsProxy);
-AppProxyRouter.use('/api/videos', VideosProxy);
-AppProxyRouter.use('/api/channels', ChannelsProxy);
+AppProxyRouter.use('/api/comment', CommentsProxy);
+AppProxyRouter.use('/api/reaction', ReactionsProxy);
+AppProxyRouter.use('/api/video', VideosProxy);
+AppProxyRouter.use('/api/channel', ChannelsProxy);
 
 export { AppProxyRouter };

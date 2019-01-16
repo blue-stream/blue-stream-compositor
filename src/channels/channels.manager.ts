@@ -2,8 +2,15 @@ import * as request from 'request-promise-native';
 import { config } from '../config';
 
 export class ChannelsManager {
-    static get(channelId: string) {
-        return request.get(`${config.endpoints.channels.hostname}:${config.endpoints.channels.port}/${channelId}`);
+    static get(channelId: string, authorizationHeader: string) {
+        return request.get(
+            `${config.endpoints.channels.hostname}:${config.endpoints.channels.port}/${config.endpoints.channels.api}/${channelId}`,
+            {
+                headers: {
+                    authorization: authorizationHeader,
+                },
+            },
+        );
     }
 
     static async doesExist(channelId: string) {

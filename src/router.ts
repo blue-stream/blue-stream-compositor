@@ -6,9 +6,9 @@ import { ChannelsRouter } from './channels/channels.router';
 
 const AppRouter: Router = Router();
 
-AppRouter.use('/api/comments', CommentsRouter);
-AppRouter.use('/api/reactions', ReactionsRouter);
-AppRouter.use('/api/videos', VideosRouter);
-AppRouter.use('/api/channels', ChannelsRouter);
+AppRouter.use('/api/comment', CommentsRouter);
+AppRouter.use('/api/reaction', ReactionsRouter);
+AppRouter.use('/api/video', VideosRouter);
+AppRouter.use('/api/channel', ChannelsRouter);
 
 export { AppRouter };
