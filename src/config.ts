@@ -1,5 +1,9 @@
 export const config = {
     endpoints: {
+        users: {
+            port: +(process.env.USERS_PORT || 5004),
+            hostname: process.env.USERS_HOST || 'localhost',
+        },
         comments: {
             port: +(process.env.COMMENTS_PORT || 5003),
             hostname: process.env.COMMENTS_HOST || 'localhost',
@@ -12,10 +16,18 @@ export const config = {
             port: +(process.env.COMMENTS_PORT || 5001),
             hostname: process.env.COMMENTS_HOST || 'localhost',
         },
+        channels: {
+            port: +(process.env.CHANNELS_PORT || 5000),
+            hostname: process.env.CHANNELS_HOST || 'localhost',
+        },
     },
     server: {
         port: +(process.env.SERVER_PORT || 3000),
         hostname: process.env.SERVER_HOST || 'localhost',
         name: process.env.SERVER_NAME || 'Compositor',
+    },
+    authentication: {
+        required: process.env.AUTHENTICATION_REQUIRED || true,
+        secret: process.env.SECRET_KEY || 'bLue5tream@2018',
     },
 };

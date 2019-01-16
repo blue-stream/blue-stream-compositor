@@ -3,6 +3,7 @@ import { VideosController } from './videos.controller';
 
 const VideosRouter: Router = Router();
 
-VideosRouter.get('/many', VideosController.getMany);
+VideosRouter.get('/:id', VideosController.get);
+VideosRouter.post('/', VideosController.create);
 
 export { VideosRouter };
