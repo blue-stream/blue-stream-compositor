@@ -3,6 +3,6 @@ import { ReactionsController } from './reactions.controller';
 
 const ReactionsRouter: Router = Router();
 
-ReactionsRouter.get('/many', ReactionsController.getMany);
+ReactionsRouter.post('/', ReactionsController.create);
 
 export { ReactionsRouter };
