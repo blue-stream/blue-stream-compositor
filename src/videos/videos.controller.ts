@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
-import { ChannelsManager } from '../channels/channels.manager';
-import { VideosManager } from './videos.manager';
-import { UsersManager } from '../users/users.manager';
+import { ChannelsService } from '../channels/channels.service';
+import { VideosService } from './videos.service';
+import { UsersService } from '../users/users.service';
 
 export class VideosController {
     static async get(req: Request, res: Response) {
         const returnedResponses = await Promise.all([
-            ChannelsManager.get(req.query.channel, req.headers.authorization!),
-            VideosManager.get(req.params.id, req.headers.authorization!),
+            ChannelsService.get(req.query.channel, req.headers.authorization!),
+            VideosService.get(req.params.id, req.headers.authorization!),
             // UsersManager.get(req.user.id),
         ]);
 
@@ -20,9 +20,9 @@ export class VideosController {
     }
 
     static async create(req: Request, res: Response) {
-        const doesExist = await ChannelsManager.doesExist(req.query.channel);
+        const doesExist = await ChannelsService.doesExist(req.query.channel);
         if (doesExist) {
-            res.json(await VideosManager.create(req.body));
+            res.json(await VideosService.create(req.body));
         } else {
             res.status(404);
         }
