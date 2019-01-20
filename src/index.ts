@@ -1,4 +1,6 @@
 import * as express from 'express';
+import * as bodyParser from 'body-parser';
+
 import { config } from './config';
 import { AppRouter } from './router';
 import { AppProxyRouter } from './proxyRouter';
@@ -19,6 +21,9 @@ if (config.authentication.required) {
 } else {
     server.use(Authenticator.mockUser);
 }
+
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: true }));
 
 server.use(AppRouter);
 server.use(AppProxyRouter);

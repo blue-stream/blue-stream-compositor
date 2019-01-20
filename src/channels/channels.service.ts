@@ -13,9 +13,7 @@ export class ChannelsService {
         );
     }
 
-    static async doesExist(channelId: string) {
-        const channelStatus = await request.head(`${config.endpoints.channels.hostname}:${config.endpoints.channels.port}/${channelId}`);
-
-        return channelStatus.statusCode === 200;
+    static doesExist(channelId: string) {
+        return request.head(`${config.endpoints.channels.hostname}:${config.endpoints.channels.port}/${channelId}`);
     }
 }

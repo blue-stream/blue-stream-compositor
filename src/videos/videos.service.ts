@@ -18,4 +18,8 @@ export class VideosService {
     static create(body: any) {
         return request.post(`${VideosService.api}`, { body });
     }
+
+    static doesExist(videoId: string) {
+        return request.head(`${config.endpoints.videos.hostname}:${config.endpoints.videos.port}/${videoId}`);
+    }
 }

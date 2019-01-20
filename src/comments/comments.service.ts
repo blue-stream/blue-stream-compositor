@@ -1,7 +1,8 @@
 import * as request from 'request-promise-native';
+import { config } from '../config';
 
 export class CommentsService {
-    static doesExists(req: Request, res: Response) {
-       // res.json(req.body);
+    static doesExist(commentId: string) {
+        return request.head(`${config.endpoints.comments.hostname}:${config.endpoints.comments.port}/${commentId}`);
     }
 }

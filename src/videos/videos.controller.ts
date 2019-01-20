@@ -21,11 +21,7 @@ export class VideosController {
     }
 
     static async create(req: Request, res: Response) {
-        const doesExist = await ChannelsService.doesExist(req.query.channel);
-        if (doesExist) {
-            res.json(await VideosService.create(req.body));
-        } else {
-            res.status(404);
-        }
+        await ChannelsService.doesExist(req.query.channel);
+        res.json(await VideosService.create(req.body));
     }
 }
