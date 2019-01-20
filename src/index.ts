@@ -1,12 +1,12 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import { syslogSeverityLevels } from 'llamajs';
 
 import { config } from './config';
 import { AppRouter } from './router';
 import { AppProxyRouter } from './proxyRouter';
 import { Authenticator } from './utils/authenticator';
 import { Logger } from './utils/logger';
-import { syslogSeverityLevels } from 'llamajs';
 import { userErrorHandler, serverErrorHandler, unknownErrorHandler } from './utils/errors/errorHandler';
 
 const server = express();
