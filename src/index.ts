@@ -3,6 +3,9 @@ import { config } from './config';
 import { AppRouter } from './router';
 import { AppProxyRouter } from './proxyRouter';
 import { Authenticator } from './utils/authenticator';
+import { Logger } from './utils/logger';
+import { syslogSeverityLevels } from 'llamajs';
+import { userErrorHandler, serverErrorHandler, unknownErrorHandler } from './utils/errors/errorHandler';
 
 const server = express();
 
@@ -20,5 +23,13 @@ if (config.authentication.required) {
 server.use(AppRouter);
 server.use(AppProxyRouter);
 
+server.use(userErrorHandler);
+server.use(serverErrorHandler);
+server.use(unknownErrorHandler);
+
+Logger.configure();
+
+Logger.log(syslogSeverityLevels.Informational, 'Compositor Started', `Port: ${config.server.port}`);
 console.log(`${config.server.name} running on port ${config.server.port}`);
+
 server.listen(config.server.port);
