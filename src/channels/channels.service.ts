@@ -4,7 +4,7 @@ import { config } from '../config';
 export class ChannelsService {
     static get(channelId: string, authorizationHeader: string) {
         return request.get(
-            `${config.endpoints.channels.hostname}:${config.endpoints.channels.port}/${config.endpoints.channels.api}/${channelId}`,
+            `${config.endpoints.channels.hostname}:${config.endpoints.channels.port}${config.endpoints.channels.api}/${channelId}`,
             {
                 headers: {
                     authorization: authorizationHeader,
