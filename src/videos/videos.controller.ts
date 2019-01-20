@@ -7,17 +7,16 @@ export class VideosController {
     static async get(req: Request, res: Response) {
         const returnedResponses = await Promise.all([
             VideosService.get(req.params.id, req.headers.authorization!),
-            // UsersService.get(req.user.id),
+            UsersService.get(req.user.id),
         ]);
 
         const [video, user]: any = returnedResponses;
         const channel = await ChannelsService.get(video.channel, req.headers.authorization!);
-        // video.user = user;
 
         res.json({
             ...JSON.parse(video),
             channel: JSON.parse(channel),
-            // user: JSON.parse(user),
+            user: JSON.parse(user),
         });
     }
 
