@@ -6,17 +6,19 @@ import { UsersService } from '../users/users.service';
 export class VideosController {
     static async get(req: Request, res: Response) {
         const returnedResponses = await Promise.all([
-            ChannelsService.get(req.query.channel, req.headers.authorization!),
             VideosService.get(req.params.id, req.headers.authorization!),
-            // UsersManager.get(req.user.id),
+            // UsersService.get(req.user.id),
         ]);
 
-        const [channel, video]: any = returnedResponses;
-        console.log(video);
-        console.log(channel);
+        const [video, user]: any = returnedResponses;
+        const channel = await ChannelsService.get(video.channel, req.headers.authorization!);
         // video.user = user;
 
-        res.json({ ...JSON.parse(video), channel: JSON.parse(channel) });
+        res.json({
+            ...JSON.parse(video),
+            channel: JSON.parse(channel),
+            // user: JSON.parse(user),
+        });
     }
 
     static async create(req: Request, res: Response) {
