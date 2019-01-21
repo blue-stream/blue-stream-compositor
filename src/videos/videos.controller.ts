@@ -20,6 +20,12 @@ export class VideosController {
         });
     }
 
+    static async getMany(req: Request, res: Response) {
+        const videos = await VideosService.getMany(req.query, req.headers.authorization!);
+        // Add channels with RPC
+        res.json(videos);
+    }
+
     static async create(req: Request, res: Response) {
         await ChannelsService.doesExist(req.query.channel);
         res.json(await VideosService.create(req.body));

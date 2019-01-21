@@ -15,6 +15,18 @@ export class VideosService {
         ));
     }
 
+    static async getMany(query: any, authorizationHeader: string) {
+        return JSON.parse(await request.get(
+            `${VideosService.api}`,
+            {
+                qs: query,
+                headers: {
+                    authorization: authorizationHeader,
+                },
+            },
+        ));
+    }
+
     static async create(body: any) {
         return JSON.parse(await request.post(`${VideosService.api}`, { body }));
     }
