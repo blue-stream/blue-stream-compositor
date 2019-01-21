@@ -23,7 +23,7 @@ export class VideosController {
 
     static async getMany(req: Request, res: Response) {
         let videos = await VideosService.getMany(req.query, req.headers.authorization!);
-        const channelsIds = videos.map((channelId: string) => videos.channel);
+        const channelsIds = videos.map((video: any) => video.channel);
 
         try {
             const channels = await ChannelsRpc.getChannelsByIds(channelsIds);
