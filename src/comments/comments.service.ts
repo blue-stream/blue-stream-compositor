@@ -5,7 +5,7 @@ export class CommentsService {
     static api: string = `${config.endpoints.comments.hostname}:${config.endpoints.comments.port}${config.endpoints.comments.api}`;
 
     static async getRoot(query: any, authorizationHeader: string) {
-        return JSON.parse(await request.get(`${CommentsService.api}?resource=${query.id}`, {
+        return JSON.parse(await request.get(`${CommentsService.api}/root?resource=${query.resource}`, {
             headers: {
                 authorization: authorizationHeader,
             },
