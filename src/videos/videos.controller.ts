@@ -2,12 +2,13 @@ import { Request, Response } from 'express';
 import { ChannelsService } from '../channels/channels.service';
 import { VideosService } from './videos.service';
 import { UsersService } from '../users/users.service';
+import { ChannelsRpc } from '../channels/channels.rpc';
 
 export class VideosController {
     static async get(req: Request, res: Response) {
         const returnedResponses = await Promise.all([
             VideosService.get(req.params.id, req.headers.authorization!),
-          //  UsersService.get(req.user.id),
+            //  UsersService.get(req.user.id),
         ]);
 
         const video = returnedResponses[0];
@@ -16,14 +17,25 @@ export class VideosController {
         res.json({
             ...video,
             channel,
-        //    user: JSON.parse(user),
+            //    user: JSON.parse(user),
         });
     }
 
     static async getMany(req: Request, res: Response) {
-        const videos = await VideosService.getMany(req.query, req.headers.authorization!);
-        // Add channels with RPC
-        res.json(videos);
+        let videos = await VideosService.getMany(req.query, req.headers.authorization!);
+        const channelsIds = videos.map((channelId: string) => videos.channel);
+
+        try {
+            const channels = await ChannelsRpc.getChannelsByIds(channelsIds);
+            videos = videos.map((video: any) => {
+                return {
+                    ...video,
+                    channel: channels[video.channel],
+                };
+            });
+        } finally {
+            return res.json(videos);
+        }
     }
 
     static async create(req: Request, res: Response) {
