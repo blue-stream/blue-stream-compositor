@@ -16,6 +16,12 @@ export const config = {
             api: process.env.USERS_API || '/api/reaction',
         },
         videos: {
+            rpc: {
+                port: +(process.env.VIDEOS_RPC_PORT || 6001),
+                methods: {
+                    GET_CHANNELS_VIEWS: 'getChannelsViews',
+                },
+            },
             port: +(process.env.VIDEOS_PORT || 5001),
             hostname: process.env.VIDEOS_HOST || 'http://localhost',
             api: process.env.USERS_API || '/api/video',
