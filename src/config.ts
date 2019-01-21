@@ -1,6 +1,12 @@
 export const config = {
     endpoints: {
         users: {
+            rpc: {
+                port: +(process.env.USERS_RPC_PORT || 6002),
+                methods: {
+                    GET_USERS_BY_IDS: 'getUsersByIds',
+                },
+            },
             port: +(process.env.USERS_PORT || 5002),
             hostname: process.env.USERS_HOST || 'http://localhost',
             api: process.env.USERS_API || '/api/user',
@@ -11,6 +17,12 @@ export const config = {
             api: process.env.USERS_API || '/api/comment',
         },
         reactions: {
+            rpc: {
+                port: +(process.env.REACTIONS_RPC_PORT || 6004),
+                methods: {
+                    GET_REACTIONS_BY_RESOURCES: 'getReactionsByResources',
+                },
+            },
             port: +(process.env.REACTIONS_PORT || 5004),
             hostname: process.env.REACTIONS_HOST || 'http://localhost',
             api: process.env.USERS_API || '/api/reaction',
@@ -27,6 +39,12 @@ export const config = {
             api: process.env.USERS_API || '/api/video',
         },
         channels: {
+            rpc: {
+                port: +(process.env.CHANNELS_RPC_PORT || 6006),
+                methods: {
+                    GET_CHANNELS_BY_IDS: 'getChannelsByIds',
+                },
+            },
             port: +(process.env.CHANNELS_PORT || 5006),
             hostname: process.env.CHANNELS_HOST || 'http://localhost',
             api: process.env.USERS_API || '/api/channel',
