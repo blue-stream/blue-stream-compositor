@@ -5,6 +5,6 @@ export class UsersService {
     static api: string = `${config.endpoints.users.hostname}:${config.endpoints.users.port}${config.endpoints.users.api}`;
 
     static async get(id: string) {
-        return request.get(`${UsersService.api}/${id}`);
+        return JSON.parse(await request.get(`${UsersService.api}/${id}`));
     }
 }

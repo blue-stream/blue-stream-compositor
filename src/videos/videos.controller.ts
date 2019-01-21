@@ -10,12 +10,12 @@ export class VideosController {
           //  UsersService.get(req.user.id),
         ]);
 
-        const [video, user]: any = returnedResponses;
+        const video = returnedResponses[0];
         const channel = await ChannelsService.get(video.channel, req.headers.authorization!);
 
         res.json({
-            ...JSON.parse(video),
-            channel: JSON.parse(channel),
+            ...video,
+            channel,
         //    user: JSON.parse(user),
         });
     }

@@ -4,18 +4,18 @@ import { config } from '../config';
 export class ReactionsService {
     static api: string = `${config.endpoints.reactions.hostname}:${config.endpoints.reactions.port}${config.endpoints.reactions.api}`;
 
-    static getAmount(resourceId: string, authorizationHeader: string) {
-        return request.get(
+    static async getAmount(resourceId: string, authorizationHeader: string) {
+        return JSON.parse(await request.get(
             `${ReactionsService.api}/${resourceId}/amount`,
             {
                 headers: {
                     authorization: authorizationHeader,
                 },
             },
-        );
+        ));
     }
 
-    static create(body: any) {
-        return request.post(`${ReactionsService.api}`, { body });
+    static async create(body: any) {
+        return JSON.parse(await request.post(`${ReactionsService.api}`, { body }));
     }
 }
