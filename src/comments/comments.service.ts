@@ -13,6 +13,14 @@ export class CommentsService {
         }));
     }
 
+    static async getReplies(parent: string, authorizationHeader: string) {
+        return JSON.parse(await request.get(`${CommentsService.api}/${parent}/replies`, {
+            headers: {
+                authorization: authorizationHeader,
+            },
+        }));
+    }
+
     static doesExist(commentId: string) {
         return request.head(`${config.endpoints.comments.hostname}:${config.endpoints.comments.port}/${commentId}`);
     }
