@@ -15,6 +15,18 @@ export class ChannelsService {
         ));
     }
 
+    static async getMany(query: any, authorizationHeader: string) {
+        return JSON.parse(await request.get(
+            `${ChannelsService.api}/many`,
+            {
+                qs: query,
+                headers: {
+                    authorization: authorizationHeader,
+                },
+            },
+        ));
+    }
+
     static doesExist(channelId: string) {
         return request.head(`${config.endpoints.channels.hostname}:${config.endpoints.channels.port}/${channelId}`);
     }
