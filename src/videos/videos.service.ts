@@ -1,37 +1,22 @@
-import * as request from 'request-promise-native';
+import { HttpClient } from '../utils/http.client';
 import { config } from '../config';
 
 export class VideosService {
     static api: string = `${config.endpoints.videos.hostname}:${config.endpoints.videos.port}${config.endpoints.videos.api}`;
 
-    static async get(videoId: string, authorizationHeader: string) {
-        return JSON.parse(await request.get(
-            `${VideosService.api}/${videoId}`,
-            {
-                headers: {
-                    authorization: authorizationHeader,
-                },
-            },
-        ));
+    static get(videoId: string, authorizationHeader: string) {
+        return HttpClient.get(`${VideosService.api}/${videoId}`, null, authorizationHeader);
     }
 
-    static async getMany(query: any, authorizationHeader: string) {
-        return JSON.parse(await request.get(
-            `${VideosService.api}`,
-            {
-                qs: query,
-                headers: {
-                    authorization: authorizationHeader,
-                },
-            },
-        ));
+    static getMany(query: any, authorizationHeader: string) {
+        return HttpClient.get(`${VideosService.api}`, query, authorizationHeader);
     }
 
-    static async create(body: any) {
-        return JSON.parse(await request.post(`${VideosService.api}`, { body }));
+    static create(body: any, authorizationHeader: string) {
+        return HttpClient.post(`${VideosService.api}`, body, authorizationHeader);
     }
 
-    static doesExist(videoId: string) {
-        return request.head(`${config.endpoints.videos.hostname}:${config.endpoints.videos.port}/${videoId}`);
+    static doesExist(videoId: string, authorizationHeader: string) {
+        return HttpClient.head(`${VideosService.api}/${videoId}`, null, authorizationHeader);
     }
 }

@@ -1,31 +1,22 @@
-import * as request from 'request-promise-native';
+import { HttpClient } from '../utils/http.client';
 import { config } from '../config';
 
 export class CommentsService {
     static api: string = `${config.endpoints.comments.hostname}:${config.endpoints.comments.port}${config.endpoints.comments.api}`;
 
-    static async getRoot(query: any, authorizationHeader: string) {
-        return JSON.parse(await request.get(`${CommentsService.api}/root`, {
-            qs: query,
-            headers: {
-                authorization: authorizationHeader,
-            },
-        }));
+    static getRoot(query: any, authorizationHeader: string) {
+        return HttpClient.get(`${CommentsService.api}/root`, query, authorizationHeader);
     }
 
-    static async getReplies(parent: string, authorizationHeader: string) {
-        return JSON.parse(await request.get(`${CommentsService.api}/${parent}/replies`, {
-            headers: {
-                authorization: authorizationHeader,
-            },
-        }));
+    static getReplies(parent: string, authorizationHeader: string) {
+        return HttpClient.get(`${CommentsService.api}/${parent}/replies`, null, authorizationHeader);
     }
 
-    static doesExist(commentId: string) {
-        return request.head(`${config.endpoints.comments.hostname}:${config.endpoints.comments.port}/${commentId}`);
+    static doesExist(commentId: string, authorizationHeader: string) {
+        return HttpClient.head(`${CommentsService.api}/${commentId}`, null, authorizationHeader);
     }
 
-    static async create(body: any) {
-        return JSON.parse(await request.post(`${CommentsService.api}`, { body }));
+    static create(body: any, authorizationHeader: string) {
+        return HttpClient.post(`${CommentsService.api}`, body, authorizationHeader);
     }
 }

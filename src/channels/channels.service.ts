@@ -1,33 +1,18 @@
-import * as request from 'request-promise-native';
+import { HttpClient } from './../utils/http.client';
 import { config } from '../config';
 
 export class ChannelsService {
     static api: string = `${config.endpoints.channels.hostname}:${config.endpoints.channels.port}${config.endpoints.channels.api}`;
 
-    static async get(channelId: string, authorizationHeader: string) {
-        return JSON.parse(await request.get(
-            `${ChannelsService.api}/${channelId}`,
-            {
-                headers: {
-                    authorization: authorizationHeader,
-                },
-            },
-        ));
+    static  get(channelId: string, authorizationHeader: string) {
+        return HttpClient.get(`${ChannelsService.api}/${channelId}`, null, authorizationHeader);
     }
 
-    static async getMany(query: any, authorizationHeader: string) {
-        return JSON.parse(await request.get(
-            `${ChannelsService.api}/many`,
-            {
-                qs: query,
-                headers: {
-                    authorization: authorizationHeader,
-                },
-            },
-        ));
+    static  getMany(query: any, authorizationHeader: string) {
+        return HttpClient.get(`${ChannelsService.api}/many`, query, authorizationHeader);
     }
 
-    static doesExist(channelId: string) {
-        return request.head(`${config.endpoints.channels.hostname}:${config.endpoints.channels.port}/${channelId}`);
+    static async doesExist(channelId: string, authorizationHeader: string) {
+        return HttpClient.head(`${ChannelsService.api}/${channelId}`, null, authorizationHeader);
     }
 }

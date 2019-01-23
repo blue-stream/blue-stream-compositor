@@ -1,10 +1,10 @@
-import * as request from 'request-promise-native';
 import { config } from '../config';
+import { HttpClient } from '../utils/http.client';
 
 export class UsersService {
     static api: string = `${config.endpoints.users.hostname}:${config.endpoints.users.port}${config.endpoints.users.api}`;
 
-    static async get(id: string) {
-        return JSON.parse(await request.get(`${UsersService.api}/${id}`));
+    static get(id: string, authorizationHeader: string) {
+        return HttpClient.get(`${UsersService.api}/${id}`, null, authorizationHeader);
     }
 }
