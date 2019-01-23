@@ -2,12 +2,12 @@ export const config = {
     endpoints: {
         users: {
             rpc: {
-                port: +(process.env.USERS_RPC_PORT || 6002),
+                port: +(process.env.USERS_RPC_PORT || 6007),
                 methods: {
                     GET_USERS_BY_IDS: 'getUsersByIds',
                 },
             },
-            port: +(process.env.USERS_PORT || 5002),
+            port: +(process.env.USERS_PORT || 5007),
             hostname: process.env.USERS_HOST || 'http://localhost',
             api: process.env.USERS_API || '/api/user',
         },
