@@ -6,18 +6,18 @@ import { ChannelsRpc } from '../channels/channels.rpc';
 
 export class VideosController {
     static async get(req: Request, res: Response) {
-        const returnedResponses = await Promise.all([
-            VideosService.get(req.params.id, req.headers.authorization!),
-            //  UsersService.get(req.user.id),
+        const video = await VideosService.get(req.params.id, req.headers.authorization!);
+
+        const results = await Promise.all([
+            UsersService.get(video.owner, req.headers.authorization!).catch(e => video.owner),
+            ChannelsService.get(video.channel, req.headers.authorization!).catch(e => video.channel),
         ]);
 
-        const video = returnedResponses[0];
-        const channel = await ChannelsService.get(video.channel, req.headers.authorization!);
-
+        const [owner, channel] = results;
         res.json({
             ...video,
             channel,
-            //    user: JSON.parse(user),
+            owner,
         });
     }
 
@@ -39,7 +39,7 @@ export class VideosController {
     }
 
     static async create(req: Request, res: Response) {
-        await ChannelsService.doesExist(req.query.channel);
-        res.json(await VideosService.create(req.body));
+        await ChannelsService.doesExist(req.body.channel, req.headers.authorization!);
+        res.json(await VideosService.create(req.body, req.headers.authorization!));
     }
 }
